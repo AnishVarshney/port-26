@@ -40,7 +40,7 @@ export function FooterSection() {
 
   const handleCopyEmail = async () => {
     try {
-      await navigator.clipboard.writeText("anishvarshney444@gmail.com")
+      await navigator.clipboard.writeText("anishvarshney912@gmail.com")
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
@@ -65,9 +65,9 @@ export function FooterSection() {
   }
 
   const socialLinks = [
-    { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/anishvarshney", color: "#0A66C2" },
+    { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/anishhvarshney/", color: "#0A66C2" },
     { name: "GitHub", icon: Github, href: "https://github.com/anishvarshney", color: "#FFFFFF" },
-    { name: "App Store", icon: Apple, href: "https://apps.apple.com", color: "#007AFF" },
+    { name: "App Store", icon: Apple, href: "https://apps.apple.com/us/app/voicetonotes-ai-voice-to-text/id6747948555", color: "#007AFF" },
   ]
 
   return (
@@ -137,7 +137,7 @@ export function FooterSection() {
 
             <div className="relative flex items-center gap-4">
               <span className="text-xl md:text-2xl font-medium text-white tracking-tight">
-                anishvarshney444@gmail.com
+                anishvarshney912@gmail.com
               </span>
               <motion.div animate={copied ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 0.3 }}>
                 {copied ? (

@@ -34,11 +34,11 @@ export function Navbar() {
   // Copy email handler
   const handleCopyEmail = async () => {
     try {
-      await navigator.clipboard.writeText("anish@example.com")
+      await navigator.clipboard.writeText("anishvarshney912@gmail.com")
       setCopied(true)
       toast({
         title: "Email copied to clipboard!",
-        description: "anish@example.com",
+        description: "anishvarshney912@gmail.com",
       })
       setTimeout(() => setCopied(false), 2000)
     } catch {
