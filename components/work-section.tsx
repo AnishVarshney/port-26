@@ -15,7 +15,9 @@ import {
   ChevronRight,
   Layers,
   X,
+  ArrowUpRight,
 } from "lucide-react"
+import Link from "next/link"
 
 // Release history for the deployment ticker
 const releaseHistory = [
@@ -208,12 +210,24 @@ export function WorkSection() {
               </span>
             </div>
 
-            {/* Project Title */}
-            <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">VoiceToNotes</h3>
+            <Link href="/vtn" className="group inline-block">
+              <h3 className="text-4xl md:text-5xl font-bold text-white mb-2 flex items-center gap-3 group-hover:text-[#3B82F6] transition-colors">
+                VoiceToNotes
+                <ArrowUpRight className="w-8 h-8 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </h3>
+            </Link>
             <p className="text-white/60 text-lg mb-8 max-w-2xl">
               AI-powered voice memo app with real-time transcription. Led the complete architecture migration from React
               Native to native Swift, improving performance by 60%.
             </p>
+
+            <Link
+              href="/vtn"
+              className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-lg bg-[#3B82F6]/10 border border-[#3B82F6]/30 text-[#3B82F6] font-mono text-sm hover:bg-[#3B82F6]/20 transition-all duration-300 group"
+            >
+              <span>View Full Case Study</span>
+              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
 
             {/* The Shift Toggle */}
             <div className="mb-8">

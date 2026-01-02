@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
 import {
   AlertTriangle,
@@ -100,12 +100,12 @@ export function LeadershipSection() {
   const [deploymentAngle, setDeploymentAngle] = useState(0)
 
   // Animate deployment dial
-  useState(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setDeploymentAngle((prev) => (prev + 0.5) % 360)
     }, 50)
     return () => clearInterval(interval)
-  })
+  }, [])
 
   return (
     <section
