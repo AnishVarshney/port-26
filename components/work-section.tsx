@@ -16,6 +16,7 @@ import {
   Layers,
   X,
   ArrowUpRight,
+  ExternalLink,
 } from "lucide-react"
 import Link from "next/link"
 
@@ -468,51 +469,56 @@ export function WorkSection() {
               {/* Background Card (Visual Stack Effect) */}
               <div className="absolute top-3 left-3 right-0 h-full bg-[#1A1A1A]/30 rounded-lg border border-white/5 -z-10" />
 
-              {/* Main Card */}
-              <div
-                className="relative bg-[#1A1A1A] rounded-lg border border-white/10 p-6 overflow-hidden group cursor-pointer"
-                onMouseEnter={() => setShowXRay(true)}
-                onMouseLeave={() => setShowXRay(false)}
-              >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-3xl font-bold text-white mb-2">TalesFM</h3>
-                    <p className="text-white/60 max-w-lg">
-                      Audio storytelling platform with real-time streaming. Maintained alongside VoiceToNotes,
-                      demonstrating ability to manage multiple production apps simultaneously.
-                    </p>
+              <Link href="/tales-fm">
+                <div
+                  className="relative bg-[#1A1A1A] rounded-lg border border-white/10 p-6 overflow-hidden group cursor-pointer hover:border-[#DFFF00]/30 transition-colors duration-300"
+                  onMouseEnter={() => setShowXRay(true)}
+                  onMouseLeave={() => setShowXRay(false)}
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-3xl font-bold text-white group-hover:text-[#DFFF00] transition-colors">
+                          TalesFM
+                        </h3>
+                        <ExternalLink className="w-4 h-4 text-white/30 group-hover:text-[#DFFF00] transition-colors" />
+                      </div>
+                      <p className="text-white/60 max-w-lg">
+                        Audio storytelling platform with real-time streaming. Maintained alongside VoiceToNotes,
+                        demonstrating ability to manage multiple production apps simultaneously.
+                      </p>
+                    </div>
+                    <Layers className="w-8 h-8 text-[#10B981] group-hover:text-[#DFFF00] transition-colors" />
                   </div>
-                  <Layers className="w-8 h-8 text-[#10B981]" />
-                </div>
 
-                {/* X-Ray View on Hover */}
-                <AnimatePresence>
-                  {showXRay && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="absolute inset-0 bg-[#0A0A0A]/95 p-6 flex flex-col justify-center"
-                    >
-                      <span className="font-mono text-xs text-[#3B82F6] mb-2">{"// Component Tree"}</span>
-                      <pre className="font-mono text-xs text-white/70 leading-relaxed">
-                        {`<App>
+                  {/* X-Ray View on Hover */}
+                  <AnimatePresence>
+                    {showXRay && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 bg-[#0A0A0A]/95 p-6 flex flex-col justify-center"
+                      >
+                        <span className="font-mono text-xs text-[#DFFF00] mb-2">{"// Component Tree"}</span>
+                        <pre className="font-mono text-xs text-white/70 leading-relaxed">
+                          {`<App>
   └─ <AudioProvider>
       ├─ <StreamManager />
       ├─ <PlaybackControls />
       └─ <StoryFeed>
           └─ <StoryCard[] />`}
-                      </pre>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                        </pre>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
-                {/* Hover hint */}
-                <div className="mt-4 flex items-center gap-2 text-xs text-white/30">
-                  <ChevronRight className="w-3 h-3" />
-                  <span>Hover to view component tree</span>
+                  <div className="mt-4 flex items-center gap-2 text-xs text-white/30 group-hover:text-[#DFFF00]/60 transition-colors">
+                    <ChevronRight className="w-3 h-3" />
+                    <span>View Full Case Study</span>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </motion.div>
         </div>
