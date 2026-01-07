@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { Bell, Settings, Search, FileText, Mic, Sparkles, Pencil, Calendar, Plus, ScanLine } from "lucide-react"
 
 interface VTNHomeScreenProps {
-  onNavigate: (screen: "transcribe") => void
+  onNavigate: (screen: "transcribe" | "settings") => void
   userName?: string
 }
 
@@ -133,7 +133,7 @@ export function VTNHomeScreen({ onNavigate, userName = "Joey" }: VTNHomeScreenPr
           <Bell className="w-6 h-6 text-black" strokeWidth={1.5} />
           {hasUnread && <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full" />}
         </motion.button>
-        <motion.button whileTap={{ scale: 0.92 }} className="p-2 -mr-2">
+        <motion.button whileTap={{ scale: 0.92 }} className="p-2 -mr-2" onClick={() => onNavigate("settings")}>
           <Settings className="w-6 h-6 text-black" strokeWidth={1.5} />
         </motion.button>
       </div>

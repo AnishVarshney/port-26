@@ -4,32 +4,30 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { VTNHomeScreen } from "./vtn-home-screen"
 import { VTNTranscribeScreen } from "./vtn-transcribe-screen"
+import { VTNSettingsScreen } from "./vtn-settings-screen"
+import { VTNAccountScreen } from "./vtn-account-screen"
+import { useVTNAuth } from "@/hooks/use-vtn-auth"
 
-type Screen = "home" | "transcribe"
+type Screen = "home" | "transcribe" | "settings" | "account"
 
 // iOS-style slide transition variants
 const slideVariants = {
-  // Entering from right (pushing new screen)
   enterFromRight: {
     x: "100%",
     opacity: 1,
   },
-  // Entering from left (going back)
   enterFromLeft: {
     x: "-30%",
     opacity: 0.5,
   },
-  // Center position
   center: {
     x: 0,
     opacity: 1,
   },
-  // Exit to left (being pushed)
   exitToLeft: {
     x: "-30%",
     opacity: 0.5,
   },
-  // Exit to right (going back)
   exitToRight: {
     x: "100%",
     opacity: 1,
@@ -39,15 +37,24 @@ const slideVariants = {
 export function VTNPhoneFrame() {
   const [currentScreen, setCurrentScreen] = useState<Screen>("home")
   const [direction, setDirection] = useState<"forward" | "back">("forward")
+  const [screenHistory, setScreenHistory] = useState<Screen[]>(["home"])
+
+  const { isAuthenticated, user, hasPremiumAccess, signIn, signOut, deleteAccount } = useVTNAuth()
 
   const navigateTo = (screen: Screen) => {
     setDirection("forward")
+    setScreenHistory((prev) => [...prev, screen])
     setCurrentScreen(screen)
   }
 
   const goBack = () => {
     setDirection("back")
-    setCurrentScreen("home")
+    setScreenHistory((prev) => {
+      const newHistory = prev.slice(0, -1)
+      const previousScreen = newHistory[newHistory.length - 1] || "home"
+      setCurrentScreen(previousScreen)
+      return newHistory
+    })
   }
 
   return (
@@ -120,6 +127,54 @@ export function VTNPhoneFrame() {
                   }}
                 >
                   <VTNTranscribeScreen onBack={goBack} />
+                </motion.div>
+              )}
+
+              {currentScreen === "settings" && (
+                <motion.div
+                  key="settings"
+                  className="absolute inset-0"
+                  initial={direction === "forward" ? "enterFromRight" : "enterFromLeft"}
+                  animate="center"
+                  exit={direction === "back" ? "exitToRight" : "exitToLeft"}
+                  variants={slideVariants}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
+                  }}
+                >
+                  <VTNSettingsScreen
+                    onBack={goBack}
+                    isAuthenticated={isAuthenticated}
+                    onSignOut={signOut}
+                    onSignIn={signIn}
+                    onNavigateToAccount={() => navigateTo("account")}
+                  />
+                </motion.div>
+              )}
+
+              {currentScreen === "account" && (
+                <motion.div
+                  key="account"
+                  className="absolute inset-0"
+                  initial={direction === "forward" ? "enterFromRight" : "enterFromLeft"}
+                  animate="center"
+                  exit={direction === "back" ? "exitToRight" : "exitToLeft"}
+                  variants={slideVariants}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
+                  }}
+                >
+                  <VTNAccountScreen
+                    onBack={goBack}
+                    isAuthenticated={isAuthenticated}
+                    user={user}
+                    hasPremiumAccess={hasPremiumAccess}
+                    onDeleteAccount={deleteAccount}
+                  />
                 </motion.div>
               )}
             </AnimatePresence>
