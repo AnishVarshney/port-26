@@ -6,9 +6,10 @@ import { VTNHomeScreen } from "./vtn-home-screen"
 import { VTNTranscribeScreen } from "./vtn-transcribe-screen"
 import { VTNSettingsScreen } from "./vtn-settings-screen"
 import { VTNAccountScreen } from "./vtn-account-screen"
+import { VTNChangePasswordScreen } from "./vtn-change-password-screen"
 import { useVTNAuth } from "@/hooks/use-vtn-auth"
 
-type Screen = "home" | "transcribe" | "settings" | "account"
+type Screen = "home" | "transcribe" | "settings" | "account" | "changePassword"
 
 // iOS-style slide transition variants
 const slideVariants = {
@@ -174,7 +175,26 @@ export function VTNPhoneFrame() {
                     user={user}
                     hasPremiumAccess={hasPremiumAccess}
                     onDeleteAccount={deleteAccount}
+                    onNavigateToChangePassword={() => navigateTo("changePassword")}
                   />
+                </motion.div>
+              )}
+
+              {currentScreen === "changePassword" && (
+                <motion.div
+                  key="changePassword"
+                  className="absolute inset-0"
+                  initial={direction === "forward" ? "enterFromRight" : "enterFromLeft"}
+                  animate="center"
+                  exit={direction === "back" ? "exitToRight" : "exitToLeft"}
+                  variants={slideVariants}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
+                  }}
+                >
+                  <VTNChangePasswordScreen onBack={goBack} />
                 </motion.div>
               )}
             </AnimatePresence>

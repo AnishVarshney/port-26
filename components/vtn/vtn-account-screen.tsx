@@ -10,6 +10,7 @@ interface VTNAccountScreenProps {
   user: { name: string; email: string } | null
   hasPremiumAccess: boolean
   onDeleteAccount: () => void
+  onNavigateToChangePassword: () => void
 }
 
 // Account option data - DRY pattern using array mapping
@@ -166,6 +167,7 @@ export function VTNAccountScreen({
   user,
   hasPremiumAccess,
   onDeleteAccount,
+  onNavigateToChangePassword,
 }: VTNAccountScreenProps) {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
 
@@ -187,6 +189,12 @@ export function VTNAccountScreen({
         return hasPremiumAccess ? "Premium" : "Basic"
       default:
         return ""
+    }
+  }
+
+  const handleOptionTap = (optionId: string) => {
+    if (optionId === "password") {
+      onNavigateToChangePassword()
     }
   }
 
@@ -224,7 +232,7 @@ export function VTNAccountScreen({
               label={option.label}
               value={getOptionValue(option.id)}
               showArrow={option.type === "navigate"}
-              onTap={option.type === "navigate" ? () => console.log(`Navigate to ${option.id}`) : undefined}
+              onTap={option.type === "navigate" ? () => handleOptionTap(option.id) : undefined}
               isLast={index === accountOptions.length - 1}
             />
           ))}
