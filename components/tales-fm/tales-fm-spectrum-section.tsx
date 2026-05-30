@@ -224,7 +224,9 @@ function BehavioralCard({
               }}
               animate={isHovered ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
             >
-              <IconComponent className="w-6 h-6" style={{ color: profile.color } as React.CSSProperties} />
+              <span style={{ color: profile.color }}>
+                <IconComponent className="w-6 h-6" />
+              </span>
             </motion.div>
             <div
               className="px-2 py-1 rounded text-[10px] font-mono"
